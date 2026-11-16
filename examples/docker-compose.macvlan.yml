@@ -1,5 +1,9 @@
-# macvlan: nordmesh gets its own IP on the LAN (common on UGOS / Synology,
-# where the host already uses the ports you want). Adjust parent/subnet/IPs.
+# macvlan: nordmesh gets its own IP on the LAN, like a separate device
+# (common on UGOS / Synology, where the host already uses the ports you want).
+# Adjust parent/subnet/IPs. Containers that share it via
+# `network_mode: service:nordmesh` are reachable at that IP on every port, so
+# no `ports:` are needed. The host itself can't reach a macvlan IP (a Linux
+# limitation): test from another device on the LAN.
 services:
   nordmesh:
     image: ghcr.io/tejasvedagiri/nordmesh:1
@@ -20,8 +24,8 @@ services:
     environment:
       - NORDVPN_TOKEN=${NORDVPN_TOKEN}
       # - NORDVPN_CONNECT=                # empty: recommended server; e.g. Germany
-      # The LAN must be allowlisted or the kill switch cuts it off.
-      # - NORDVPN_ALLOWLIST_SUBNETS=      # e.g. 192.168.1.0/24
+      # Required: the LAN must be allowlisted or the kill switch cuts it off.
+      - NORDVPN_ALLOWLIST_SUBNETS=192.168.1.0/24   # your LAN subnet
       - NORDVPN_MESHNET=on
       # - NORDVPN_NICKNAME=               # e.g. home-node (must differ from hostname)
       # - NORDVPN_ALLOW_PEER_ROUTING=     # e.g. tejas.nord,laptop
@@ -37,4 +41,4 @@ networks:
       config:
         - subnet: 192.168.1.0/24
           gateway: 192.168.1.1
-          ip_range: 192.168.1.248/29
+          ip_range: 192.168.1.250/32   # only hand out this IP; reserve it on your router
