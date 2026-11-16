@@ -1,0 +1,77 @@
+This device:
+Nickname: home-node
+Hostname: alpha-delta.nord
+IP: 100.64.0.10
+Public Key: SELFKEYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+OS: linux
+Distribution: Debian GNU/Linux 13 (trixie)
+
+Local Peers:
+Nickname: laptop
+Hostname: bravo-echo.nord
+Status: connected
+IP: 100.64.0.11
+Public Key: MACKEYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+OS: macOS
+Distribution: macOS
+Allow Incoming Traffic: enabled
+Allow Routing: disabled
+Allow Local Network Access: disabled
+Allow Sending Files: enabled
+Allows Incoming Traffic: enabled
+Allows Routing: enabled
+Allows Local Network Access: enabled
+Allows Sending Files: enabled
+Accept Fileshare Automatically: disabled
+
+Nickname: desktop
+Hostname: charlie-fox.nord
+Status: offline
+IP: 100.64.0.12
+Public Key: WINKEYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+OS: windows
+Distribution: Windows
+Allow Incoming Traffic: enabled
+Allow Routing: enabled
+Allow Local Network Access: enabled
+Allow Sending Files: enabled
+Allows Incoming Traffic: enabled
+Allows Routing: disabled
+Allows Local Network Access: disabled
+Allows Sending Files: enabled
+Accept Fileshare Automatically: disabled
+
+Hostname: delta-golf.nord
+Nickname: -
+Status: connected
+IP: 100.64.0.13
+Public Key: LINKEYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+OS: linux
+Distribution: Ubuntu
+Allow Incoming Traffic: enabled
+Allow Routing: enabled
+Allow Local Network Access: disabled
+Allow Sending Files: disabled
+Allows Incoming Traffic: enabled
+Allows Routing: enabled
+Allows Local Network Access: enabled
+Allows Sending Files: enabled
+Accept Fileshare Automatically: disabled
+
+External Peers:
+Nickname: friend-phone
+Hostname: echo-hotel.nord
+Status: connected
+IP: 100.64.0.20
+Public Key: EXTKEYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+OS: android
+Distribution: Android
+Allow Incoming Traffic: disabled
+Allow Routing: enabled
+Allow Local Network Access: enabled
+Allow Sending Files: disabled
+Allows Incoming Traffic: enabled
+Allows Routing: disabled
+Allows Local Network Access: disabled
+Allows Sending Files: disabled
+Accept Fileshare Automatically: disabled

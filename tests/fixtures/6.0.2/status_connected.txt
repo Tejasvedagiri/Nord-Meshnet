@@ -1,0 +1,11 @@
+-  \  Status: Connected
+Server: Germany #123
+Hostname: in123.nordvpn.com
+IP: 203.0.113.7
+Country: Germany
+City: Mumbai
+Current technology: NORDLYNX
+Current protocol: UDP
+Post-quantum VPN: Disabled
+Transfer: 1.2 MiB received, 300 KiB sent
+Uptime: 5 minutes 2 seconds

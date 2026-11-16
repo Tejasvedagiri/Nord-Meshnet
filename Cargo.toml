@@ -1,0 +1,26 @@
+[package]
+name = "nordmesh"
+version = "1.0.2"
+edition = "2021"
+rust-version = "1.80"
+license = "MIT"
+description = "PID 1 for a NordVPN + Meshnet container, configured from environment variables"
+publish = false
+
+# No dependencies on purpose: a static musl binary, a trivially reviewable
+# supply chain, and a Cargo.lock that never drifts.
+
+[lib]
+name = "nordmesh"
+path = "src/lib.rs"
+
+[[bin]]
+name = "nordmesh-init"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true

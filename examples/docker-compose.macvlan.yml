@@ -1,0 +1,40 @@
+# macvlan: nordmesh gets its own IP on the LAN (common on UGOS / Synology,
+# where the host already uses the ports you want). Adjust parent/subnet/IPs.
+services:
+  nordmesh:
+    image: ghcr.io/tejasvedagiri/nordmesh:1
+    container_name: nordmesh
+    hostname: nordmesh-node
+    cap_add: [NET_ADMIN, NET_RAW]
+    devices: [/dev/net/tun:/dev/net/tun]
+    security_opt: [no-new-privileges:true]
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+      - net.ipv4.conf.all.arp_ignore=1
+      - net.ipv4.conf.all.rp_filter=2
+    volumes:
+      - ./nordvpn:/var/lib/nordvpn
+    networks:
+      lan:
+        ipv4_address: 192.168.1.250
+    environment:
+      - NORDVPN_TOKEN=${NORDVPN_TOKEN}
+      # - NORDVPN_CONNECT=                # empty: recommended server; e.g. Germany
+      # The LAN must be allowlisted or the kill switch cuts it off.
+      # - NORDVPN_ALLOWLIST_SUBNETS=      # e.g. 192.168.1.0/24
+      - NORDVPN_MESHNET=on
+      # - NORDVPN_NICKNAME=               # e.g. home-node (must differ from hostname)
+      # - NORDVPN_ALLOW_PEER_ROUTING=     # e.g. tejas.nord,laptop
+      # - NORDVPN_ALLOW_PEER_LOCAL=       # e.g. tejas.nord
+    restart: unless-stopped
+
+networks:
+  lan:
+    driver: macvlan
+    driver_opts:
+      parent: eth0          # your NAS's LAN interface (e.g. bond0, ovs_eth0)
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+          gateway: 192.168.1.1
+          ip_range: 192.168.1.248/29

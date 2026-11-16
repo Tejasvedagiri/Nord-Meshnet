@@ -1,0 +1,7 @@
+This device:
+Hostname: alpha-delta.nord
+Nickname: -
+IP: 100.64.0.10
+Public Key: SELFKEYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+OS: linux
+Distribution: Debian GNU/Linux 13 (trixie)

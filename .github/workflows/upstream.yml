@@ -1,0 +1,52 @@
+# Weekly: is there a newer NordVPN client in the stable apt repo? Open a PR
+# bumping NORDVPN_VERSION. Never auto-merged: a human reviews every bump,
+# and the PR's CI runs the CLI-verb smoke test against the new client.
+name: upstream
+
+on:
+  schedule:
+    - cron: "41 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Latest client
+        id: latest
+        run: |
+          latest=$(curl -fsSL https://repo.nordvpn.com/deb/nordvpn/debian/dists/stable/main/binary-amd64/Packages \
+            | awk '/^Package: /{p=$2} /^Version: /{if (p=="nordvpn") print $2}' | sort -V | tail -1)
+          current=$(sed -n 's/^ARG NORDVPN_VERSION=//p' Dockerfile)
+          echo "latest=$latest" >> "$GITHUB_OUTPUT"
+          echo "current=$current" >> "$GITHUB_OUTPUT"
+          echo "current=$current latest=$latest"
+      - name: Bump
+        if: steps.latest.outputs.latest != steps.latest.outputs.current
+        env:
+          LATEST: ${{ steps.latest.outputs.latest }}
+        run: sed -i "s/^ARG NORDVPN_VERSION=.*/ARG NORDVPN_VERSION=${LATEST}/" Dockerfile
+      - if: steps.latest.outputs.latest != steps.latest.outputs.current
+        uses: peter-evans/create-pull-request@3ffccacd46053766916f087ce41d627c0b8cf2d1 # v8.1.3
+        with:
+          branch: upstream/nordvpn-${{ steps.latest.outputs.latest }}
+          commit-message: "feat: NordVPN client ${{ steps.latest.outputs.latest }}"
+          title: "feat: NordVPN client ${{ steps.latest.outputs.latest }}"
+          body: |
+            NordVPN published client `${{ steps.latest.outputs.latest }}` (currently pinned: `${{ steps.latest.outputs.current }}`).
+
+            Before merging:
+            - [ ] CI smoke test passes (CLI verbs still exist)
+            - [ ] Read the client changelog for CLI or output-format changes
+            - [ ] Capture new fixtures under `tests/fixtures/${{ steps.latest.outputs.latest }}/` if output changed
+            - [ ] Run the live test (`live-test` workflow) after merge
+          labels: upstream
