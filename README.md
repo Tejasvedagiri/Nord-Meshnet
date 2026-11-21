@@ -187,7 +187,7 @@ linked). It is PID 1, the healthcheck, and the `sysctl` shim (chosen by
 ## Credits
 
 - [drumandbytes/nordvpn](https://github.com/drumandbytes/nordvpn) (MIT): the
-  sysctl shim, startup quirks and live-test design.
+  sysctl shim and startup quirks.
 - [MattsTechInfo/Meshnet](https://github.com/MattsTechInfo/Meshnet) (MIT):
   peer-permission variable naming.
 

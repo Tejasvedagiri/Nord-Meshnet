@@ -26,6 +26,7 @@ RUN apt-get update \
  && echo "deb [signed-by=/usr/share/keyrings/nordvpn.gpg] https://repo.nordvpn.com/deb/nordvpn/debian stable main" \
       > /etc/apt/sources.list.d/nordvpn.list \
  && apt-get update \
+ && apt-get upgrade -y \
  && apt-get install -y --no-install-recommends \
       "nordvpn=${NORDVPN_VERSION}" e2fsprogs iptables iproute2 nftables procps wireguard-tools \
  && apt-get purge -y curl gnupg \

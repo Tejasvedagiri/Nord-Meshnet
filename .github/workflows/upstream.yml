@@ -48,5 +48,4 @@ jobs:
             - [ ] CI smoke test passes (CLI verbs still exist)
             - [ ] Read the client changelog for CLI or output-format changes
             - [ ] Capture new fixtures under `tests/fixtures/${{ steps.latest.outputs.latest }}/` if output changed
-            - [ ] Run the live test (`live-test` workflow) after merge
           labels: upstream
