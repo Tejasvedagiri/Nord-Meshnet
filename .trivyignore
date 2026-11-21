@@ -5,6 +5,9 @@
 # golang.org/x/net/html DoS, vendored in the NordVPN client (fixed in x/net 0.62.0).
 CVE-2026-78661
 
+# golang.org/x/net/http2, vendored in the NordVPN client (fixed in x/net 0.60.0).
+CVE-2026-78669
+
 # snapd snap-confine race (2022). Likely a false positive: Trivy compares the
 # vendored module's v0.0.0-2026... pseudo-version against snapd's 2.57.6 tag.
 CVE-2022-3328
