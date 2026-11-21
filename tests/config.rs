@@ -53,14 +53,8 @@ fn acceptance_compose() {
         ("NORDVPN_ALLOWLIST_SUBNETS", "192.168.1.0/24"),
         ("NORDVPN_MESHNET", "on"),
         ("NORDVPN_NICKNAME", "home-node"),
-        (
-            "NORDVPN_ALLOW_PEER_ROUTING",
-            "laptop, desktop,server",
-        ),
-        (
-            "NORDVPN_ALLOW_PEER_LOCAL",
-            "laptop,desktop,server",
-        ),
+        ("NORDVPN_ALLOW_PEER_ROUTING", "laptop, desktop,server"),
+        ("NORDVPN_ALLOW_PEER_LOCAL", "laptop,desktop,server"),
     ])
     .unwrap();
     assert_eq!(c.connect, Some(vec!["Germany".to_string()]));
@@ -95,7 +89,11 @@ fn connect_multiword_and_group() {
 fn killswitch_needs_connect() {
     let e = errors(&[("NORDVPN_KILLSWITCH", "on")]);
     assert!(e[0].contains("requires NORDVPN_CONNECT"), "{e:?}");
-    let c = parse(&[("NORDVPN_CONNECT", "Germany"), ("NORDVPN_KILLSWITCH", "off")]).unwrap();
+    let c = parse(&[
+        ("NORDVPN_CONNECT", "Germany"),
+        ("NORDVPN_KILLSWITCH", "off"),
+    ])
+    .unwrap();
     assert!(!c.killswitch);
 }
 

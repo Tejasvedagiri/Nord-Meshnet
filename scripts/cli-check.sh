@@ -23,7 +23,7 @@ for v in "${verbs[@]}"; do
      && ! grep -qiE 'no help topic|command not found|unknown command' <<<"$out"; then
     echo "ok    nordvpn $v"
   else
-    echo "FAIL  nordvpn $v"; echo "$out" | sed 's/^/      /'; fail=1
+    echo "FAIL  nordvpn $v"; while IFS= read -r line; do echo "      $line"; done <<<"$out"; fail=1
   fi
 done
 

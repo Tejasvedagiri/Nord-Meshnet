@@ -96,12 +96,7 @@ fn peer_list_without_peers() {
 #[test]
 fn resolve_by_nickname_hostname_ip() {
     let l = peers::parse_peer_list(&fixture("6.0.2", "peer_list.txt"));
-    for id in [
-        "Laptop",
-        "bravo-echo.nord",
-        "bravo-echo",
-        "100.64.0.11",
-    ] {
+    for id in ["Laptop", "bravo-echo.nord", "bravo-echo", "100.64.0.11"] {
         match l.resolve(id) {
             Resolution::Found(p) => assert_eq!(p.hostname, "bravo-echo.nord", "{id}"),
             other => panic!("{id}: {other:?}"),

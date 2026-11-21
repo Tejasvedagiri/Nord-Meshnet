@@ -14,6 +14,7 @@ if [ -n "${PEER:-}" ]; then
   peer_env=(-e "NORDVPN_ALLOW_PEER_FILESHARE=${PEER}")
 fi
 
+# shellcheck disable=SC2329 # invoked via trap
 cleanup() {
   echo "--- logs"; docker logs "$name" 2>&1 | tail -100 || true
   docker exec "$name" nordvpn set killswitch off >/dev/null 2>&1 || true
