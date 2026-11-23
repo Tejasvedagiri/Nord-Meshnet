@@ -15,7 +15,7 @@ RUN cargo build --release --locked
 FROM debian:trixie-slim@sha256:a72b4433de1cf7d6bae0c4cee74d0547f58601a643b3375f070c51600d63b6b2
 
 # Bumped by reviewed PRs from .github/workflows/upstream.yml, never silently.
-ARG NORDVPN_VERSION=6.0.2
+ARG NORDVPN_VERSION=6.1.0
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # hadolint ignore=DL3008
